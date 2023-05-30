@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row flex-nowrap">
+        {% include 'menu.html' %}
+        <div class="col">
+            <!-- list blogs -->
+            <!-- profileBlog -->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Caption</th>
+                        <th scope="col">Image</th>
+                        <th scope="col" class="">Action</th>
+                    </tr>
+                </thead>
+                {% for blog in profileBlog %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{blog.title}}</td>
+                        <td>{{ blog.caption|slice:":15" }}...</td>
+                        <td>
+                            {% if blog.image %}
+                            <img src="{{blog.image.url}}" alt="" style="height: 40px; width: 60px; object-fit: cover;">
+                            {% else %}
+                            <img src="https://source.unsplash.com/random" alt="" style="height: 40px; width: 60px; object-fit: cover;">
+                            {% endif %}
+                        </td>
+                        <td class="d-flex">
+                            <a href="{% url 'edit-post' blog.id %}"><button type="button" class="btn btn-primary me-2">Edit</button></a>
+                            <form action="{% url 'delete-post' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="hidden_id" value="{{blog.id}}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,19 @@
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light rounded">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 py-2 text-white min-vh-80">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li>
+                <a href="{% url 'profile' %}" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Profile</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'profile-blog' %}" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Blogs</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Logout</span> </a>
+            </li>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row flex-nowrap">
+        {% include 'menu.html' %}
+        <div class="col py-3">
+            <form action="{% url 'edit-post' post.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form4Example1">Title</label>
+                    <input type="text" id="form4Example1" name="title" class="form-control" value="{{post.title}}" />
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form4Example2">Image</label>
+                    <input type="file" id="form4Example2" name="image" class="form-control" value="{{post.image.url}}" />
+                </div>
+
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form4Example3">Caption</label>
+                    <textarea class="form-control" name="caption" id="form4Example3" rows="4">{{post.caption}}</textarea>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">Never let your memories be greater than your dreams</h1>
+        <div class="col-lg-10 mx-auto">
+            <p class="lead mb-4">Before long the searchlight discovered some distance away a schooner with all sails
+                set, apparently the same vessel which had been noticed earlier in the evening. The wind had by this time
+                backed to the east, and there was a shudder amongst the watchers on the cliff as they realized the
+                terrible danger in which she now was..</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'posts' %}"><button type="button" class="btn btn-primary btn-lg px-4 gap-3">View
+                        Blogs</button></a>
+
+
+                <a href="{% url 'profile' %}"><button type="button"
+                        class="btn btn-outline-secondary btn-lg px-4">Profile</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

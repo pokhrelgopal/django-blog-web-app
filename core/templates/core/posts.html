@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex align-items-center justify-content-between">
+        <!-- search form -->
+        <div class="pt-4">
+            <form action="{% url 'posts' %}" method="GET">
+                <div class="input-group" style="width: 500px;">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                        aria-describedby="search-addon" name="q" />
+                    <button type="submit" class="btn btn-outline-primary">search</button>
+                </div>
+            </form>
+        </div>
+        <!-- add blogpost buttons -->
+        {% if request.user.is_authenticated %}
+        <div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Add a blogpost
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a blog post</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'add-post' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <!-- Name input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form4Example1">Title</label>
+                                    <input type="text" id="form4Example1" name="title" class="form-control" />
+                                </div>
+
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form4Example2">Image</label>
+                                    <input type="file" id="form4Example2" name="image" class="form-control" />
+                                </div>
+
+                                <!-- Message input -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form4Example3">Caption</label>
+                                    <textarea class="form-control" name="caption" id="form4Example3"
+                                        rows="4"></textarea>
+                                </div>
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- View all posts -->
+    <div class="py-5 d-flex">
+        <!-- single card starts -->
+        <div class="row align-items-start">
+            {% for post in posts %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{post.image.url}}" class="card-img-top object-fit-cover" height="200px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <p class="card-text">{{post.caption}}</p>
+                        <div class="d-flex align-items-baseline justify-content-between">
+                            <a href="{% url 'single-post' post.id %}" class="btn btn-primary">View</a>
+                            <small>{{post.date_created | timesince}} ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- single card ends -->
+    </div>
+</div>
+{% endblock content %}
